@@ -1,0 +1,68 @@
+spring:
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://192.168.12.131:3306/spring-boot-test
+    username: ody
+    password: ody,123
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    # redis数据库索引（默认为0），我们使用索引为3的数据库，避免和其他数据库冲突
+    database: 3
+    # redis服务器地址（默认为localhost）
+    host: 192.168.8.18
+    # redis端口（默认为6379）
+    port: 16383
+    # redis访问密码（默认为空）
+    password:
+    # redis连接超时时间（单位为毫秒）
+    timeout: 0
+    # redis连接池配置
+    pool:
+      # 最大可用连接数（默认为8，负数表示无限）
+      max-active: 8
+      # 最大空闲连接数（默认为8，负数表示无限）
+      max-idle: 8
+      # 最小空闲连接数（默认为0，该值只有为正数才有作用）
+      min-idle: 0
+      # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
+      max-wait: -1
+
+
+  REDIS_USER_SESSION_KEY: REDIS_USER_SESSION
+  SSO_SESSION_EXPIRE: 30
+
+# 服务器配置
+server:
+  port: 9999
+
+
+
+# mybatis配置
+mybatis:
+  # 配置映射类所在包名
+  type-aliases-package: com.wooyoo.learning.model.domain
+  # 配置mapper xml文件所在路径，这里是一个数组
+  mapper-locations:
+    - mappers/ProductMapper.xml
+    - mappers/UserMapper.xml
+
+
+
+logging:
+  level:
+    com.wooyoo.learning: DEBUG
+debug: true
+
+http:
+#设置整个连接池默认最大连接数
+  defaultMaxPerRoute: 100
+  #设置整个连接池最大连接数
+  maxTotal: 300
+  #设置请求超时
+  connectTimeout: 1000
+  #设置从连接池中获取到连接的最长时间
+  connectionRequestTimeout: 500
+  #设置数据传输的最长时间
+  socketTimeout: 10000
+
+
