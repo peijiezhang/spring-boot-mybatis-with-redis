@@ -40,4 +40,11 @@ public class SpringBootMybatisWithRedisApplicationTests {
         Product testProduct = restTemplate.getForObject("http://localhost:" + port + "/product/" + productId, Product.class);
         assertThat(testProduct.getPrice()).isEqualTo(newPrice);
     }
+
+    public void testFile(){
+
+
+
+    }
+
 }
