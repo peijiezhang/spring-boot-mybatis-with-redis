@@ -1,3 +1,4 @@
+/*
 package com.wooyoo.learning.filter;
 
 import com.alibaba.druid.util.StringUtils;
@@ -98,3 +99,4 @@ public class LoginFilter implements Filter {
         log.info("LoginFilter ==> init method: destroy");
     }
 }
+*/

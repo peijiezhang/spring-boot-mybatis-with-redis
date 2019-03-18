@@ -43,7 +43,7 @@ mybatis:
   type-aliases-package: com.wooyoo.learning.model.domain
   # 配置mapper xml文件所在路径，这里是一个数组
   mapper-locations:
-    - mappers/ProductMapper.xml
+
     - mappers/UserMapper.xml
 
 
