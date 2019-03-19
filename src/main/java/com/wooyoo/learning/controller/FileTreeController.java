@@ -1,5 +1,6 @@
 package com.wooyoo.learning.controller;
 
+import com.wooyoo.learning.model.dto.FileDto;
 import com.wooyoo.learning.service.FileTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +16,16 @@ public class FileTreeController {
     FileTreeService fileTreeService;
 
     @RequestMapping("/getList")
-    public Object getFileList(@RequestBody String path){
+    public Object getFileList(@RequestBody FileDto fileDto){
 
+        try {
+            return  fileTreeService.getFileTreeList(fileDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  " controller error";
 
-        return  fileTreeService.getFileTreeList(path);
+        }
+
     }
 
 

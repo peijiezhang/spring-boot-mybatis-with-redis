@@ -1,4 +1,3 @@
-/*
 package com.wooyoo.learning.filter;
 
 import com.alibaba.druid.util.StringUtils;
@@ -42,9 +41,25 @@ public class LoginFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse)servletResponse;
 
-        System.out.println("===========================" + httpServletRequest.getRequestURL());
+        System.out.println("getRequestURL=====>"+httpServletRequest.getRequestURL());
+        System.out.println("getParameterMap=====>"+httpServletRequest.getParameterMap());
+        System.out.println( "getContextPath=====>"+httpServletRequest.getContextPath());
+        System.out.println("getQueryString====>"+httpServletRequest.getQueryString());
+
+    /*    httpServletRequest.getRequestURL();
+        // ?a=b&a=c
+        // a [b,c]
+        httpServletRequest.getParameterMap();
 
 
+        // 拿到tomcat的contextPath
+        httpServletRequest.getContextPath();
+
+        // a=b&a=c
+        httpServletRequest.getQueryString();
+
+        httpServletRequest.getHeaderNames();
+        httpServletRequest.getHeader("Content-Type");*/
 
         if ( httpServletRequest.getRequestURI().contains("login")){
 
@@ -59,7 +74,10 @@ public class LoginFilter implements Filter {
         try{
 
             if(httpServletRequest.getCookies()==null){
-                httpServletResponse.sendRedirect("Login");
+                //httpServletResponse.sendRedirect("Login");
+                //http://localhost:9999/filetree/Login
+                //http://localhost:9999/Login
+                httpServletResponse.sendRedirect("http://localhost:8888/#/Login");
 
             }else{
 
@@ -99,4 +117,3 @@ public class LoginFilter implements Filter {
         log.info("LoginFilter ==> init method: destroy");
     }
 }
-*/

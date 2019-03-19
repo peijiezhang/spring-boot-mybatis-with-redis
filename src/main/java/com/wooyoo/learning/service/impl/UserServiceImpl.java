@@ -8,14 +8,10 @@ import com.wooyoo.learning.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -48,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
 
         if ( isLogin ){
+
+
+
 
             Cookie cookie = new Cookie("ut",token);
             response.addCookie(cookie);
