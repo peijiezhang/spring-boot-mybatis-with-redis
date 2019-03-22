@@ -45,6 +45,10 @@ mybatis:
   mapper-locations:
 
     - mappers/UserMapper.xml
+    - mappers/OrdersMapper.xml
+    - mappers/ItemMapper.xml
+    - mappers/OrderItemMapper.xml
+
 
 
 

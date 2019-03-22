@@ -40,11 +40,13 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse)servletResponse;
+/*
 
         System.out.println("getRequestURL=====>"+httpServletRequest.getRequestURL());
         System.out.println("getParameterMap=====>"+httpServletRequest.getParameterMap());
         System.out.println( "getContextPath=====>"+httpServletRequest.getContextPath());
         System.out.println("getQueryString====>"+httpServletRequest.getQueryString());
+*/
 
     /*    httpServletRequest.getRequestURL();
         // ?a=b&a=c

@@ -1,6 +1,6 @@
 package com.wooyoo.learning;
 
-import com.wooyoo.learning.model.domain.Product;
+
 import com.wooyoo.learning.model.dto.CommTree;
 import com.wooyoo.learning.model.dto.FileTree;
 import org.junit.Test;
