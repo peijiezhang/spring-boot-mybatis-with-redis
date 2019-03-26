@@ -44,10 +44,6 @@ public class UserServiceImpl implements UserService {
 
 
         if ( isLogin ){
-
-
-
-
             Cookie cookie = new Cookie("ut",token);
             response.addCookie(cookie);
 

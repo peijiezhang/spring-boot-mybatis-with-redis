@@ -8,8 +8,10 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapperExt {
 
-    @Select("select * from user where userName =#{username}and passWord = #{passWord} ")
-    User login(@Param("user") String username);
+    @Select("select * from user where username =#{username}and password = #{password} ")
+    User login(@Param("username") String username,@Param("password") String password);
 
+    @Select("SELECT `user`.u_id FROM `user` WHERE username=#{username} and `password` =#{password} ")
+    Integer getUserId(@Param("username") String username,@Param("password") String password);
 
 }
