@@ -1,11 +1,14 @@
 package com.wooyoo.learning.model.dto;
 
 import java.io.File;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 public class FileTree  extends  CommTree{
 
-    String directory;
-    String fileName;
+    private String directory;
+    private String fileName;
 
     public FileTree() {
     }
@@ -26,10 +29,31 @@ public class FileTree  extends  CommTree{
     }
 
     public String getFileName() {
+     /*   System.out.println("hhhhhhhhhhh");*/
         return fileName;
+
     }
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+
+    }
+
+    public static void main(String[] args) {
+
+        FileTree fileTree = new FileTree();
+
+        for (Method method : fileTree.getClass().getMethods()) {
+
+            Modifier.isStatic(method.getModifiers());
+            Modifier.isPublic( method.getModifiers());
+
+            //FileTree.print();
+            //new FileTree().print();
+            System.out.println(method);
+        }
+
+
+
     }
 }
