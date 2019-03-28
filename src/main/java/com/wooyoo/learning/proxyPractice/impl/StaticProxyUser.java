@@ -2,6 +2,8 @@ package com.wooyoo.learning.proxyPractice.impl;
 
 import com.wooyoo.learning.proxyPractice.UserCommon;
 
+import java.util.Date;
+
 public class StaticProxyUser implements UserCommon {
 
     private DbUser daUser;
@@ -10,9 +12,13 @@ public class StaticProxyUser implements UserCommon {
     }
     @Override
     public void addUser() {
-        System.out.println("添加前的操作");
+        long time = new Date().getTime();
+        System.out.println("执行前时间"+time);
         daUser.addUser();
-        System.out.println("添加后的操作");
+        long time1 = new Date().getTime();
+        System.out.println("执行后时间"+time1);
+        long l = time1 - time;
+        System.out.println("耗时"+l);
 
     }
 

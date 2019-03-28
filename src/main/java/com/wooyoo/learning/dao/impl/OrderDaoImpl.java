@@ -40,7 +40,6 @@ public class OrderDaoImpl implements OrderDao {
     ItemMapper itemMapper;
 
 
-
     @Override
     public List<OrderAnalyse> getOrderList(User user) {
 
@@ -67,11 +66,9 @@ public class OrderDaoImpl implements OrderDao {
 
     }
 
-
     public List<Item> getProductList(Map<String,Integer> orderParam) {
 
         List<Item> result = new LinkedList<>();
-
         // List<Orders> orders = orderMapperExt.getOrders(userId);
 
         Integer OrderId = orderParam.get("oId");

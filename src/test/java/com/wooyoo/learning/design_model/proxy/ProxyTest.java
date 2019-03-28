@@ -1,13 +1,13 @@
 package com.wooyoo.learning.design_model.proxy;
 
 
+import com.alibaba.fastjson.JSON;
 import com.wooyoo.learning.proxyPractice.UserCommon;
 import com.wooyoo.learning.proxyPractice.impl.DbUser;
 import com.wooyoo.learning.proxyPractice.impl.MyBeanFactory;
 import com.wooyoo.learning.proxyPractice.impl.StaticProxyUser;
 import org.junit.Test;
 
-import java.lang.reflect.Proxy;
 
 
 public class ProxyTest {
@@ -36,6 +36,8 @@ public class ProxyTest {
         UserCommon cglibUserCommon = MyBeanFactory.createCglibUserCommon();
         cglibUserCommon.addUser();
         cglibUserCommon.deleteUser();
+
+
 
     }
 

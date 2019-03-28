@@ -1,6 +1,7 @@
 package com.wooyoo.learning.proxyPractice.impl;
 
 import com.wooyoo.learning.proxyPractice.UserCommon;
+import javafx.scene.input.DataFormat;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
@@ -8,6 +9,7 @@ import org.springframework.cglib.proxy.MethodProxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Date;
 
 
 public class MyBeanFactory {
@@ -49,9 +51,13 @@ public class MyBeanFactory {
         enhancer.setCallback(new MethodInterceptor() {
             @Override
             public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-                System.out.println("执行前");
+                long time = new Date().getTime();
+                System.out.println("执行前时间"+time);
                 Object invoke = method.invoke(userCommon, objects);
-                System.out.println("执行后");
+                long time1 = new Date().getTime();
+                System.out.println("执行后时间"+time1);
+                long l = time1 - time;
+                System.out.println("耗时"+l);
                 return invoke;
             }
         });
