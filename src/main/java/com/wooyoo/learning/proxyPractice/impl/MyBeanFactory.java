@@ -1,13 +1,21 @@
 package com.wooyoo.learning.proxyPractice.impl;
 
+import com.wooyoo.learning.annotationPractice.UserMapperExtTest;
+import com.wooyoo.learning.annotationPractice.Workers;
+import com.wooyoo.learning.model.mapper.UserMapper;
+import com.wooyoo.learning.model.mapper.mapperExt.UserMapperExt;
 import com.wooyoo.learning.proxyPractice.UserCommon;
 import javafx.scene.input.DataFormat;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.util.Date;
 
@@ -17,7 +25,7 @@ public class MyBeanFactory {
     public static UserCommon createUserCommon() {
 
        final  UserCommon userCommon = new DbUser();
-       //返回指定接口的代理类的实例
+        //返回指定接口的代理类的实例
         //*将方法调用分派到指定的调用
         //*处理程序。
        UserCommon getProxy = (UserCommon) Proxy.newProxyInstance(MyBeanFactory.class.getClassLoader(), userCommon.getClass().getInterfaces(), new InvocationHandler() {
@@ -33,12 +41,43 @@ public class MyBeanFactory {
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 System.out.println("执行前");
                 Object obj = method.invoke(userCommon, args);
+
                 System.out.println("执行后");
                 return obj;
             }
         });
 
         return getProxy;
+    }
+
+
+    public static UserMapperExt createUserMapperExt() {
+
+        UserMapperExt userMapperExtImp = new UserMapperExtTest();
+
+        UserMapperExt  userMapperExt =(UserMapperExt)Proxy.newProxyInstance(MyBeanFactory.class.getClassLoader(), new Class[]{UserMapperExt.class}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
+                if(method.isAnnotationPresent(Select.class)){
+                    Select annotation = method.getAnnotation(Select.class);
+                    for(String s:annotation.value()){
+                        System.out.println("annotation.value=====>"+ s);
+                    }
+                    Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+                    for(Annotation [] parameterAnnotation : parameterAnnotations ){
+                        for(Annotation annotation1 :parameterAnnotation){
+                            Param param = (Param) annotation1;
+                            System.out.println( "param.value=====>"+ param.value());
+                        }
+                    }
+                }
+                Object obj = method.invoke(userMapperExtImp, args);
+                return obj;
+            }
+        });
+        return  userMapperExt;
+
     }
 
     public static UserCommon createCglibUserCommon(){

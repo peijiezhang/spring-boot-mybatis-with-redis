@@ -11,6 +11,8 @@ public class Workers {
     @InitDescription(company = "欧电云",workStatus = "工作三年了")
     private String description;
 
+    private int salary;
+
     public String getName() {
         return name;
     }
@@ -37,4 +39,14 @@ public class Workers {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary( int salary) {
+        this.salary = salary;
+    }
+
+
 }
