@@ -40,15 +40,6 @@ public class ProxyTest {
 
 
     }
-    @Test
-    public void test(){
-
-     MyBeanFactory.createUserMapperExt();
-
-
-
-    }
-
 
 
 

@@ -2,12 +2,14 @@ package com.wooyoo.learning.proxyPractice.impl;
 
 import com.wooyoo.learning.annotationPractice.UserMapperExtTest;
 import com.wooyoo.learning.annotationPractice.Workers;
+import com.wooyoo.learning.model.domain.User;
 import com.wooyoo.learning.model.mapper.UserMapper;
 import com.wooyoo.learning.model.mapper.mapperExt.UserMapperExt;
 import com.wooyoo.learning.proxyPractice.UserCommon;
 import javafx.scene.input.DataFormat;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
@@ -48,37 +50,99 @@ public class MyBeanFactory {
         });
 
         return getProxy;
+
     }
 
 
     public static UserMapperExt createUserMapperExt() {
 
-        UserMapperExt userMapperExtImp = new UserMapperExtTest();
+
 
         UserMapperExt  userMapperExt =(UserMapperExt)Proxy.newProxyInstance(MyBeanFactory.class.getClassLoader(), new Class[]{UserMapperExt.class}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
+                String replaceResult = null;
                 if(method.isAnnotationPresent(Select.class)){
                     Select annotation = method.getAnnotation(Select.class);
                     for(String s:annotation.value()){
-                        System.out.println("annotation.value=====>"+ s);
-                    }
-                    Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-                    for(Annotation [] parameterAnnotation : parameterAnnotations ){
-                        for(Annotation annotation1 :parameterAnnotation){
-                            Param param = (Param) annotation1;
-                            System.out.println( "param.value=====>"+ param.value());
+                        //  System.out.println("annotation.value=====>"+ s);
+                        String usernameSql = null;
+
+                        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+                        for(Annotation [] parameterAnnotation : parameterAnnotations ){
+
+                           // replaceResult =getReplaceResult(parameterAnnotation,args,s,0);
+                           /* for(int i = 0; i<parameterAnnotation.length;i++){
+                                replaceResult=  s.replace("#{"+((Param)parameterAnnotation[i]).value()+"}",(String)args[i]);
+
+                            }*/
+                            for(Annotation annotation1 :parameterAnnotation){
+                                Param param = (Param) annotation1;
+
+                                replaceResult =getReplaceResult(param,args,s,0);
+                             /*   if( "username".equals(param.value())){
+                                    usernameSql = s.replace("#{"+param.value()+"}", (String)args[0]);
+
+                                }
+                                if("password".equals(param.value())){
+                                    replaceResult=  usernameSql.replace("#{"+param.value()+"}",(String)args[1]);
+                                }*/
+                                //  System.out.println( "param.value=====>"+ param.value());
+                            }
                         }
+                        // System.out.println( "username.password.value,=====>"+ username  + "   "+password);
                     }
+                    System.out.println("replace=====>"+ replaceResult);
                 }
-                Object obj = method.invoke(userMapperExtImp, args);
-                return obj;
+                //Object obj = method.invoke(userMapperExtImp, args);
+                Class clazz = method.getReturnType();
+                return clazz.newInstance();
             }
         });
         return  userMapperExt;
 
+
     }
+
+
+    public static String getReplaceResult( Param param,Object[] args,String sql,int i){
+
+
+        if(i<args.length){
+            if( sql.contains(param.value())){
+                String  resultSql = sql.replace("#{"+param.value()+"}", (String)args[i]);
+                i++;
+                getReplaceResult(param,args,resultSql,i);
+                return  resultSql;
+            }
+        }
+
+            return  sql;
+
+    }
+
+
+    public static UserMapperExt createUserMapperExt2() {
+
+        return (UserMapperExt)Proxy.newProxyInstance(MyBeanFactory.class.getClassLoader(), new Class[]{UserMapperExt.class}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
+
+                if ( method.getName().equals("login")){
+                    // 重载
+                    return new User();
+                }
+
+                if ( method.getName().equals("getUserId")){
+                    return 1;
+                }
+
+                return null;
+            }
+        });
+    }
+
 
     public static UserCommon createCglibUserCommon(){
 
@@ -107,5 +171,8 @@ public class MyBeanFactory {
         return  userCommon1;
 
     }
+
+
+
 
 }

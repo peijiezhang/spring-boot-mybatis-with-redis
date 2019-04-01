@@ -1,5 +1,7 @@
 package com.wooyoo.learning.annotationPractice;
 
+import com.wooyoo.learning.model.domain.User;
+import com.wooyoo.learning.model.mapper.mapperExt.UserMapperExt;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -75,25 +77,32 @@ public class WorkersFactory {
 
 
     public static void test( Class<?>  clazz){
-
+/*
+        UserMapperExt userMapperExtImp = new UserMapperExtTest();
+        User admin = userMapperExtImp.login("Admin", "123");
         Method[] declaredMethods = clazz.getDeclaredMethods();
+        String replaceResult = null;
         for(Method method :declaredMethods){
-
-       /*     if(method.isAnnotationPresent(Select.class)){
+           // String replaceResult = null;
+            if(method.isAnnotationPresent(Select.class)){
                 Select annotation = method.getAnnotation(Select.class);
                 for(String s:annotation.value()){
-                    System.out.println("annotation.value=====>"+ s);
-                }
 
-                Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-                for(Annotation [] parameterAnnotation : parameterAnnotations ){
-                    for(Annotation annotation1 :parameterAnnotation){
-                        Param param = (Param) annotation1;
-                        System.out.println( "param.value=====>"+ param.value());
+                    Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+                    for(Annotation [] parameterAnnotation : parameterAnnotations ){
+                        for(Annotation annotation1 :parameterAnnotation){
+
+                            Param param = (Param) annotation1;
+                            replaceResult=  s.replace("#{"+param.value()+"}",param.value());
+
+                        }
                     }
+                    // System.out.println( "username.password.value,=====>"+ username  + "   "+password);
                 }
-            }*/
+                System.out.println("replace=====>"+ replaceResult);
+            }
         }
+        System.out.println("replace=====>"+ replaceResult);*/
 
     }
 
