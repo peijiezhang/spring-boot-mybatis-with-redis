@@ -1,8 +1,10 @@
 package com.wooyoo.learning.controller;
 
+import com.wooyoo.learning.data.Person;
 import com.wooyoo.learning.model.dto.FileDto;
 import com.wooyoo.learning.service.FileTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,13 @@ import java.util.Map;
 @RequestMapping("/fileTree")
 public class FileTreeController {
 
+
+    @Autowired
+    Person person;
+
+
+    @Value("${jdbc.password}")
+    String username;
 
     @Autowired
     FileTreeService fileTreeService;

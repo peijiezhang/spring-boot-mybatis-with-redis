@@ -1,6 +1,8 @@
 package com.wooyoo.learning.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.JavaType;
 import com.wooyoo.learning.dao.UserDao;
 import com.wooyoo.learning.model.domain.User;
 import com.wooyoo.learning.service.UserService;
@@ -53,9 +55,9 @@ public class UserServiceImpl implements UserService {
 
             redisTemplate.opsForHash().putAll(token, properties);*/
 
-
-
             RedisUtil.set(token,JSONObject.toJSONString(user),30l);
+
+
         }
         return isLogin;
     }

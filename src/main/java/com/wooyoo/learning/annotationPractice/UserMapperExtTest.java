@@ -3,6 +3,9 @@ package com.wooyoo.learning.annotationPractice;
 import com.wooyoo.learning.model.domain.User;
 import com.wooyoo.learning.model.mapper.mapperExt.UserMapperExt;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
+
 
 public class UserMapperExtTest implements UserMapperExt {
 
@@ -48,4 +51,10 @@ public class UserMapperExtTest implements UserMapperExt {
     public Integer getUserId(String username, String password) {
         return null;
     }
+
+
+
+
+
+
 }
